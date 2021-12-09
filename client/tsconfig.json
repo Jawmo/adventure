@@ -12,14 +12,7 @@
     "target": "es6",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "paths": {
-      "@views/*": ["src/views/*"],
-      "@components/*": ["src/components/*"],
-      "@context/*": ["src/context/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "~/*": ["src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["./src"]
 }

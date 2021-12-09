@@ -10,14 +10,5 @@ export default defineConfig({
       host: 'localhost'
     }
   },
-  logLevel: 'info',
-  resolve: {
-    alias: {
-      '@views': './src/views',
-      '@components': './src/components',
-      '@context': './src/context',
-      '@hooks': './src/hooks',
-      '~': './src'
-    }
-  }
+  logLevel: 'info'
 })
