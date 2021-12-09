@@ -9,7 +9,7 @@ export const HelloWorld: React.FC<HelloWorldProps> = ({ name }) => {
   return (
     <div>
       <h1 className={styles.heading}>
-        Hello <span className={styles.name}>{name || 'World'}</span>
+        Hello <span className={styles.name}>{name || 'World'}</span>!
       </h1>
     </div>
   )

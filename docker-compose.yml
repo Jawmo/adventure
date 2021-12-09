@@ -1,0 +1,70 @@
+version: "3.5"
+
+networks:
+  adventure-network:
+    name: adventure-network
+    driver: bridge
+
+services:
+  db:
+    container_name: adventure-db
+    build:
+      context: ./.docker/postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_DB: adventure
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-adventure:/var/lib/postgresql/data
+    networks:
+      - adventure-network
+  nginx:
+    container_name: adventure-nginx
+    build:
+      context: ./.docker/nginx
+    ports:
+      - "80:80"
+    networks:
+      - adventure-network
+    depends_on:
+      - server
+      - client
+  client:
+    container_name: adventure-client
+    build:
+      context: ./client
+    working_dir: /opt/app
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/opt/app
+      - /opt/app/node_modules
+    command: "yarn dev"
+    networks:
+      - adventure-network
+  server:
+    container_name: adventure-server
+    build:
+      context: ./server
+    working_dir: /opt/app
+    stdin_open: true
+    environment:
+      DB_HOST: db
+      DB_USER: adventure
+      DB_PASSWORD: adventure
+      DB_NAME: adventure
+      NODE_ENV: development
+      SECRET: development
+    volumes:
+      - ./server:/opt/app
+      - /opt/app/node_modules
+    command: "yarn start"
+    networks:
+      - adventure-network
+    depends_on:
+      - db
+volumes:
+  postgres-adventure:

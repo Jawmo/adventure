@@ -17,7 +17,8 @@
       "@views/*": ["src/views/*"],
       "@components/*": ["src/components/*"],
       "@context/*": ["src/context/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "~/*": ["src/*"]
     }
   },
   "include": ["./src"]
