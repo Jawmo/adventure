@@ -5,15 +5,20 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "migrate": "docker exec -it adventure-server yarn prisma migrate dev"
+    "migrate": "docker exec -it adventure-server yarn prisma migrate dev",
+    "seed": "docker exec -it adventure-server yarn prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "devDependencies": {
     "@types/node": "^16.11.12",
-    "prisma": "^3.6.0",
+    "prisma": "3.6.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "@prisma/client": "3.6.0",
     "fastify": "^3.24.1",
     "ws": "^8.3.0"
   }
