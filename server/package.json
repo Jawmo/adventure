@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./src/index.ts"
+    "start": "ts-node ./src/index.ts",
+    "migrate": "docker exec -it adventure-server yarn prisma migrate dev"
   },
   "devDependencies": {
     "@types/node": "^16.11.12",
