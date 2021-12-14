@@ -57,7 +57,8 @@ services:
     volumes:
       - ./server:/opt/app
       - /opt/app/node_modules
-    command: "yarn start"
+    command: 
+      - "yarn start"
     networks:
       - adventure-network
     depends_on:
