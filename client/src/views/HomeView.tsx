@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { Input } from "src/core-ui/components/input";
-import { Layout } from "src/core-ui/components/layout";
+import { Input } from "../core-ui/components/input";
+import { Layout } from "../core-ui/components/layout";
 import { HelloWorld } from "../components/HelloWorld/HelloWorld";
 
 export const HomeView: React.FC = () => {

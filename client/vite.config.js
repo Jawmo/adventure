@@ -1,14 +1,14 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  root: './src',
+  root: "./src",
   build: {
-    manifest: true
+    manifest: true,
   },
   server: {
     hmr: {
-      host: 'localhost'
-    }
+      host: "localhost",
+    },
   },
-  logLevel: 'info'
-})
+  logLevel: "info",
+});

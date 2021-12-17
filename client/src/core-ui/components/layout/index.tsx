@@ -3,10 +3,10 @@ import { ForwardedRef } from "react";
 import {
   BorderRadiusValues,
   getBorderRadius,
-} from "src/core-ui/properties/border-radius";
+} from "../../properties/border-radius";
 import { Color } from "src/core-ui/properties/color";
-import { getMargin, MarginValues } from "src/core-ui/properties/margin";
-import { getPadding, PaddingValues } from "src/core-ui/properties/padding";
+import { getMargin, MarginValues } from "../../properties/margin";
+import { getPadding, PaddingValues } from "../../properties/padding";
 
 export type Props = Pick<
   React.CSSProperties,
