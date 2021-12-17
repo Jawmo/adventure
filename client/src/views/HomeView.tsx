@@ -1,22 +1,25 @@
-import React from 'react'
-import { useState } from 'react'
-import { HelloWorld } from '../components/HelloWorld/HelloWorld'
+import React from "react";
+import { useState } from "react";
+import { Input } from "src/core-ui/components/input";
+import { Layout } from "src/core-ui/components/layout";
+import { HelloWorld } from "../components/HelloWorld/HelloWorld";
 
 export const HomeView: React.FC = () => {
-  const [name, setName] = useState<string | undefined>(undefined)
+  const [name, setName] = useState<string | undefined>(undefined);
 
   return (
-    <div>
+    <Layout>
       <HelloWorld name={name} />
 
+      <input type="textarea" />
       <label>
-        Your name:
-        <input
-          type='text'
-          name='name'
-          onChange={event => setName(event.target.value)}
+        Your name:\
+        <Input
+          type="text"
+          name="name"
+          onChange={(event) => setName(event.target.value)}
         />
       </label>
-    </div>
-  )
-}
+    </Layout>
+  );
+};
