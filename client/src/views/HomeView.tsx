@@ -29,10 +29,7 @@ export const HomeView: React.FC = () => {
           <HelloWorld name={name} />
         </Layout>
 
-        <Textarea
-          name="name"
-          onChange={(event) => setName(event.target.value)}
-        />
+        <Textarea name="name" />
         <label>
           Your name:
           <Input
