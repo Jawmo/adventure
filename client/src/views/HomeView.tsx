@@ -10,14 +10,20 @@ export const HomeView: React.FC = () => {
   const [name, setName] = useState<string | undefined>(undefined);
 
   return (
-    <Layout display="flex" flexDirection="column" width="100%">
+    <Layout
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      width="100%"
+      backgroundColor={Color.Black}
+    >
       <Layout
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        width="100rem"
-        backgroundColor={Color.Green}
+        width="50rem"
+        backgroundColor={Color.Red}
       >
         <Layout>
           <HelloWorld name={name} />
