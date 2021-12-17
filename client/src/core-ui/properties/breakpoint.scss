@@ -1,0 +1,17 @@
+@mixin breakpoint-mobile {
+  @media (min-width: 0) and (max-width: 460px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-tablet {
+  @media (min-width: 461px) and (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-desktop {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
