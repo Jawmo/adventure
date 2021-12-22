@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client'
 import fastify, { FastifyRequest } from 'fastify'
+import prisma from './prisma/client'
 
 const app = fastify({ logger: true })
-const prisma = new PrismaClient()
 
 // Declare a route
 app.get('/', async (req, res) => {
