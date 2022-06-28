@@ -4,15 +4,26 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./src/index.ts"
+    "start": "ts-node ./src/index.ts",
+    "migrate": "docker exec -it adventure-server yarn prisma migrate dev",
+    "seed": "docker exec -it adventure-server yarn prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.3",
     "@types/node": "^16.11.12",
-    "prisma": "^3.6.0",
+    "jest": "^27.4.5",
+    "jest-mock-extended": "^2.0.4",
+    "prisma": "3.6.0",
+    "ts-jest": "^27.1.2",
     "ts-node": "^10.4.0",
+    "ts-standard": "^11.0.0",
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "@prisma/client": "3.6.0",
     "fastify": "^3.24.1",
     "ws": "^8.3.0"
   }
