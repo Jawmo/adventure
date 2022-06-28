@@ -1,7 +1,0 @@
-{
-  "devDependencies": {
-    "jest": "^27.4.5",
-    "jest-mock-extended": "^2.0.4",
-    "ts-jest": "^27.1.2"
-  }
-}
