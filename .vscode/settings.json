@@ -2,5 +2,11 @@
   "editor.tabSize": 2,
   "files.associations": {
     "*.css": "postcss"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "numso.prettier-standard-vscode"
   }
 }

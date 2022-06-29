@@ -11,9 +11,9 @@ services:
     build:
       context: ./.docker/postgres
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_DB: adventure
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
@@ -52,12 +52,8 @@ services:
     working_dir: /opt/app
     stdin_open: true
     environment:
-      DB_HOST: db
-      DB_USER: adventure
-      DB_PASSWORD: adventure
-      DB_NAME: adventure
-      NODE_ENV: development
-      SECRET: development
+      DB_URL: postgres://${DB_USER}:${DB_PASSWORD}@adventure-db:5432/${DB_NAME}
+      NODE_ENV: ${NODE_ENV}
     volumes:
       - ./server:/opt/app
       - /opt/app/node_modules

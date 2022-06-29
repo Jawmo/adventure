@@ -1,10 +1,21 @@
-import fastify from 'fastify'
+import fastify, { FastifyRequest } from 'fastify'
+import prisma from './prisma/client'
 
 const app = fastify({ logger: true })
 
 // Declare a route
 app.get('/', async (req, res) => {
-  return { hello: 'world' }
+  const users = await prisma.user.findMany()
+  return users
+})
+
+type UserRequest = FastifyRequest<{ Params: { id: string } }>
+
+app.get('/:id', async (req: UserRequest, res) => {
+  const user = await prisma.user.findUnique({
+    where: { id: parseInt(req.params.id) }
+  })
+  return user
 })
 
 // Run the server!
