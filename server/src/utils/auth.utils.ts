@@ -38,3 +38,11 @@ export async function createSession(userId: string) {
 
   return session;
 }
+
+export async function getUser(email: string) {
+  const user = await prisma.user.findUnique({
+    where: { email }
+  });
+
+  return user;
+}
