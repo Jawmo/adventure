@@ -1,21 +1,10 @@
-import type { FastifyRequest } from "fastify";
+import cookie from "@fastify/cookie";
 import fastify from "fastify";
 
-import prisma from "./prisma/client";
-
 const app = fastify({ logger: true });
-
-// Declare a route
-app.get("/", async (req, res) => {
-  return prisma.user.findMany();
-});
-
-type UserRequest = FastifyRequest<{ Params: { id: string } }>;
-
-app.get("/:id", async (req: UserRequest, res) => {
-  return prisma.user.findUnique({
-    where: { id: Number.parseInt(req.params.id) },
-  });
+app.register(cookie, {
+  secret: process.env.SECRET,
+  parseOptions: {},
 });
 
 // Run the server!
