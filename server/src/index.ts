@@ -9,6 +9,6 @@ app.register(cookie, {
 
 // Run the server!
 const start = async () => {
-  await app.listen(8080, "0.0.0.0");
+  await app.listen({ port: 8080, host: "0.0.0.0" });
 };
 start();
