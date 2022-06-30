@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./src/index.ts",
+    "start": "nodemon -w src --ext ts,json --exec \"ts-node ./src/index.ts\"",
     "migrate": "docker exec -it adventure-server yarn prisma migrate dev",
     "seed": "docker exec -it adventure-server yarn prisma db seed"
   },
@@ -21,6 +21,7 @@
     "eslint-config-galex": "^4.1.4",
     "jest": "^27.4.5",
     "jest-mock-extended": "^2.0.4",
+    "nodemon": "^2.0.18",
     "prisma": "3.6.0",
     "ts-jest": "^27.1.2",
     "ts-node": "^10.4.0",

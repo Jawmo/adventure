@@ -1,4 +1,5 @@
-import fastify, { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
+
 import {
   checkUserExists,
   createSession,
@@ -18,7 +19,7 @@ type SignupRequest = FastifyRequest<{
 export async function signupService(
   request: SignupRequest,
   reply: FastifyReply
-) {
+): Promise<unknown> {
   const { email, username, password } = request.body;
 
   if (await checkUserExists(email)) {
@@ -42,5 +43,4 @@ export async function signupService(
   }
 
   setSession(reply, session);
-  return;
 }

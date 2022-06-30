@@ -1,6 +1,12 @@
 import { compare } from "bcrypt";
-import { FastifyReply, FastifyRequest } from "fastify";
-import { createSession, getUser, setSession } from "../utils/auth.utils";
+import type { FastifyReply, FastifyRequest } from "fastify";
+
+import {
+  clearSessions,
+  createSession,
+  getUserByEmail,
+  setSession,
+} from "../utils/auth.utils";
 
 type LoginRequest = FastifyRequest<{
   Body: {
@@ -9,20 +15,26 @@ type LoginRequest = FastifyRequest<{
   };
 }>;
 
-export async function loginService(request: LoginRequest, reply: FastifyReply) {
+export async function loginService(
+  request: LoginRequest,
+  reply: FastifyReply
+): Promise<unknown> {
   const { email, password } = request.body;
 
-  const user = await getUser(email);
+  const user = await getUserByEmail(email);
 
   if (user === null) {
     reply.status(400);
     return "The email or password is invalid.";
   }
 
-  if (!compare(password, user.password)) {
+  const isPasswordMatching = await compare(password, user.password);
+  if (!isPasswordMatching) {
     reply.status(400);
     return "The email or password is invalid.";
   }
+
+  await clearSessions(user.id);
 
   const session = await createSession(user.id);
 
@@ -32,5 +44,4 @@ export async function loginService(request: LoginRequest, reply: FastifyReply) {
   }
 
   setSession(reply, session);
-  return;
 }

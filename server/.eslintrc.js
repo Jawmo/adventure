@@ -16,4 +16,8 @@ const disableSuggestions = createTypeScriptOverride({
 
 module.exports = createConfig({
   overrides: [disableSuggestions],
+  rules: {
+    "no-eq-null": "off",
+    eqeqeq: ["warn", "smart"],
+  },
 });
