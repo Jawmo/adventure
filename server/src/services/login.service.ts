@@ -26,7 +26,7 @@ export async function loginService(request: LoginRequest, reply: FastifyReply) {
 
   const session = await createSession(user.id);
 
-  if (session === undefined) {
+  if (session === null) {
     reply.status(500);
     return "An unknown error occurred.";
   }

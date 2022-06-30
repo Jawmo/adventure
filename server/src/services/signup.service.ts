@@ -29,14 +29,14 @@ export async function signupService(
   const passwordHash = await hashPassword(password);
   const user = await createUser(email, username, passwordHash);
 
-  if (user === undefined) {
+  if (user === null) {
     reply.status(500);
     return "An unknown error occurred.";
   }
 
   const session = await createSession(user.id);
 
-  if (session === undefined) {
+  if (session === null) {
     reply.status(500);
     return "An unknown error occurred.";
   }
