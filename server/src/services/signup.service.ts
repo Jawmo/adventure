@@ -1,9 +1,10 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import fastify, { FastifyReply, FastifyRequest } from "fastify";
 import {
   checkUserExists,
   createSession,
   createUser,
   hashPassword,
+  setSession,
 } from "../utils/auth.utils";
 
 type SignupRequest = FastifyRequest<{
@@ -40,6 +41,6 @@ export async function signupService(
     return "An unknown error occurred.";
   }
 
-  reply.setCookie("session", user.id);
+  setSession(reply, session);
   return;
 }
