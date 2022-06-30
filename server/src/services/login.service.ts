@@ -20,7 +20,7 @@ export async function loginService(
   request: LoginRequest,
   reply: FastifyReply
 ): Promise<unknown> {
-  const { email, password } = request.body;
+  const { email, password, extended } = request.body;
 
   const user = await getUserByEmail(email);
 
@@ -36,7 +36,7 @@ export async function loginService(
   }
 
   await clearSessions(user.id);
-  const session = await createSession(user.id, false);
+  const session = await createSession(user.id, extended);
 
   if (session === null) {
     reply.status(500);
