@@ -19,5 +19,7 @@ module.exports = createConfig({
   rules: {
     "no-eq-null": "off",
     eqeqeq: ["warn", "smart"],
+    "prefer-object-has-own": "warn",
+    "no-constant-binary-expression": "warn",
   },
 });

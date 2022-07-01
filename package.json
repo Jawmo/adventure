@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-galex": "^4.1.4"
+  }
+}
