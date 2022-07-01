@@ -23,24 +23,22 @@ export async function signupService(
   const { email, username, password } = request.body;
 
   if (await checkUserExists(email)) {
-    reply.status(400);
-    return "A user already exists with this email.";
+    return reply.badRequest("A user already exists with this email.");
   }
 
   const passwordHash = await hashPassword(password);
   const user = await createUser(email, username, passwordHash);
 
   if (user === null) {
-    reply.status(500);
-    return "An unknown error occurred.";
+    return reply.internalServerError();
   }
 
   const session = await createSession(user.id, false);
 
   if (session === null) {
-    reply.status(500);
-    return "An unknown error occurred.";
+    return reply.internalServerError();
   }
 
   setSession(reply, session);
+  return session;
 }

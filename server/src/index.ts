@@ -1,5 +1,6 @@
 import cookie from "@fastify/cookie";
 import cors from "@fastify/cors";
+import sensible from "@fastify/sensible";
 import fastify from "fastify";
 
 import { authRoutes } from "./routes/auth.routes";
@@ -11,12 +12,16 @@ app.register(cookie, {
   parseOptions: {},
 });
 
+app.register(sensible);
+
 app.register(cors, {
+  credentials: true,
   origin: (origin, resolve) => {
     const { hostname } = new URL(origin);
-    console.log(hostname);
+
     if (hostname === "adventure.test") {
       resolve(null, true);
+      return;
     }
     resolve(new Error("Forbidden"), false);
   },

@@ -1,22 +1,22 @@
 import React from "react";
 import { useState } from "react";
+import { useSession } from "../hooks/useSession";
 import { HelloWorld } from "../components/HelloWorld/HelloWorld";
 
 export const HomeView: React.FC = () => {
-  const [name, setName] = useState<string | undefined>(undefined);
+  const { data: session, isLoading, isError, error } = useSession();
 
-  return (
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <pre>{error}</pre>;
+  }
+
+  return session ? (
     <div>
-      <HelloWorld name={name} />
-
-      <label>
-        Your name:
-        <input
-          type="text"
-          name="name"
-          onChange={(event) => setName(event.target.value)}
-        />
-      </label>
+      <HelloWorld name={session.username} />
     </div>
-  );
+  ) : null;
 };

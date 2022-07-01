@@ -9,15 +9,15 @@ export async function meService(
   const session = await getSession(request);
 
   if (session === null) {
-    reply.status(401);
-    return "Unauthorized.";
+    reply.unauthorized();
+    return;
   }
 
   const user = await getUserById(session.userId);
 
   if (user === null) {
-    reply.status(401);
-    return "Unauthorized.";
+    reply.unauthorized();
+    return;
   }
 
   return {

@@ -28,11 +28,18 @@ export function useMutate<T, K>(
 async function mutateFetcher(
   url: string,
   method: MutateMethod = "post",
-  body?: unknown
+  body?: unknown,
+  options: RequestInit = {}
 ) {
   const response = await fetch(apiURL(url), {
     method,
+    credentials: "include",
     body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+    ...options,
   });
 
   return response.json();

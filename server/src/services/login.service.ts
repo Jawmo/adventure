@@ -25,23 +25,22 @@ export async function loginService(
   const user = await getUserByEmail(email);
 
   if (user === null) {
-    reply.status(400);
-    return "The email or password is invalid.";
+    reply.badRequest("The email or password is invalid.");
+    return;
   }
 
   const isPasswordMatching = await compare(password, user.password);
   if (!isPasswordMatching) {
-    reply.status(400);
-    return "The email or password is invalid.";
+    return reply.badRequest("The email or password is invalid.");
   }
 
   await clearSessions(user.id);
   const session = await createSession(user.id, extended);
 
   if (session === null) {
-    reply.status(500);
-    return "An unknown error occurred.";
+    return reply.internalServerError();
   }
 
   setSession(reply, session);
+  return session;
 }

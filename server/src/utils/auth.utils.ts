@@ -74,10 +74,12 @@ export function getUserById(id: string): Promise<User | null> {
 }
 
 export function setSession(reply: FastifyReply, session: Session): void {
-  reply.setCookie("__Host-session", session.id, {
-    httpOnly: true,
-    secure: true,
+  reply.setCookie("Secure__session", session.id, {
     signed: true,
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== "development",
+    sameSite: "none",
+    expires: session.expiresAt,
     path: "/",
   });
 }
@@ -85,7 +87,7 @@ export function setSession(reply: FastifyReply, session: Session): void {
 export async function getSession(
   request: FastifyRequest
 ): Promise<Session | null> {
-  const sessionId = getSignedCookie(request, "__Host-session");
+  const sessionId = getSignedCookie(request, "Secure__session");
 
   if (sessionId == null) {
     return null;
