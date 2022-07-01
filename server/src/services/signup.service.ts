@@ -35,7 +35,7 @@ export async function signupService(
     return "An unknown error occurred.";
   }
 
-  const session = await createSession(user.id);
+  const session = await createSession(user.id, false);
 
   if (session === null) {
     reply.status(500);

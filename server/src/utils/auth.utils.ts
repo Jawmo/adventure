@@ -1,6 +1,7 @@
 import type { Session, User } from "@prisma/client";
 import { hash } from "bcrypt";
 import type { FastifyReply, FastifyRequest } from "fastify";
+import moment from "moment";
 
 import prisma from "../prisma/client";
 
@@ -30,10 +31,19 @@ export function createUser(
   });
 }
 
-export function createSession(userId: string): Promise<Session> {
+export function createSession(
+  userId: string,
+  extended: boolean
+): Promise<Session> {
+  let expiration = moment().add(1, "hour");
+  if (extended) {
+    expiration = moment().add(30, "days");
+  }
+
   return prisma.session.create({
     data: {
       userId,
+      expiresAt: expiration.toDate(),
     },
   });
 }
@@ -75,22 +85,44 @@ export function setSession(reply: FastifyReply, session: Session): void {
 export async function getSession(
   request: FastifyRequest
 ): Promise<Session | null> {
-  const signedCookie = request.cookies["__Host-session"];
+  const sessionId = getSignedCookie(request, "__Host-session");
+
+  if (sessionId == null) {
+    return null;
+  }
+
+  const session = await prisma.session.findUnique({
+    where: {
+      id: sessionId,
+    },
+  });
+
+  if (session == null) {
+    return null;
+  }
+
+  if (isExpired(session)) {
+    await deleteSession(session);
+    return null;
+  }
+
+  return session;
+}
+
+export function getSignedCookie(
+  request: FastifyRequest,
+  name: string
+): string | null {
+  const signedCookie = request.cookies[name];
 
   if (signedCookie == null) {
     return null;
   }
 
   const cookie = request.unsignCookie(signedCookie);
-  const sessionId = cookie.value;
+  return cookie.value;
+}
 
-  if (sessionId == null) {
-    return null;
-  }
-
-  return prisma.session.findUnique({
-    where: {
-      id: sessionId,
-    },
-  });
+export function isExpired(session: Session): boolean {
+  return session.expiresAt < new Date();
 }
