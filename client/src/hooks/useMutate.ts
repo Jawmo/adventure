@@ -1,3 +1,4 @@
+import { apiURL } from "../utils/util";
 import { useSWRConfig } from "swr";
 
 type MutateMethod = "post" | "update" | "delete";
@@ -29,7 +30,7 @@ async function mutateFetcher(
   method: MutateMethod = "post",
   body?: unknown
 ) {
-  const response = await fetch(url, {
+  const response = await fetch(apiURL(url), {
     method,
     body: JSON.stringify(body),
   });
